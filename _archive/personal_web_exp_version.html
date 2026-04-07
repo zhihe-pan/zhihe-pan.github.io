@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Zhihe Pan | Personal Website</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --bg-deep: #ebf0f6;
+      --surface: rgba(255, 255, 255, 0.74);
+      --surface-strong: rgba(255, 255, 255, 0.9);
+      --text: #18212b;
+      --muted: #5f6b78;
+      --line: rgba(77, 93, 112, 0.14);
+      --accent: #5b7cfa;
+      --accent-soft: #dfe7ff;
+      --accent-deep: #3450b8;
+      --shadow: 0 28px 80px rgba(46, 63, 86, 0.12);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --content-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Avenir Next", "PingFang SC", "Noto Sans SC", "Helvetica Neue", sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(223, 231, 255, 0.75), transparent 28%),
+        radial-gradient(circle at 84% 16%, rgba(196, 210, 255, 0.34), transparent 20%),
+        linear-gradient(180deg, #f9fbfd 0%, var(--bg) 55%, var(--bg-deep) 100%);
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 320px;
+      height: 320px;
+      top: -110px;
+      left: -80px;
+      background: rgba(223, 231, 255, 0.9);
+    }
+
+    body::after {
+      width: 380px;
+      height: 380px;
+      right: -120px;
+      bottom: -120px;
+      background: rgba(210, 222, 245, 0.48);
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(var(--content-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-size: 0.92rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav a,
+    .hero-actions a,
+    .link-list a,
+    .research-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .pill {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+      box-shadow: 0 10px 26px rgba(46, 63, 86, 0.05);
+      transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .pill:hover,
+    .control-btn:hover,
+    .track:hover,
+    .research-link:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel {
+      border-radius: var(--radius-xl);
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.62);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .hero-main {
+      position: relative;
+      padding: 56px;
+      min-height: 470px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -50px;
+      bottom: -55px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(91, 124, 250, 0.16), rgba(91, 124, 250, 0.02) 70%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 14px;
+      margin-bottom: 28px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.68);
+      border: 1px solid rgba(77, 93, 112, 0.07);
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+    }
+
+    .name-latin {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.72em;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-subtitle {
+      margin: 18px 0 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-note {
+      margin-top: 34px;
+      max-width: 420px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      grid-template-rows: 1.2fr auto;
+      gap: 18px;
+    }
+
+    .portrait {
+      min-height: 240px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #eef3fb, #dbe7fb);
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 18px;
+    }
+
+    .gallery-frame {
+      position: absolute;
+      inset: 18px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .gallery-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .gallery-slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px 10px 16px;
+      border-radius: 14px 14px 6px 14px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+      box-shadow: 0 12px 26px rgba(46, 63, 86, 0.09);
+    }
+
+    .gallery-caption::after {
+      content: "";
+      position: absolute;
+      right: 14px;
+      bottom: -10px;
+      width: 14px;
+      height: 14px;
+      background: linear-gradient(135deg, rgba(223, 231, 255, 0.95), rgba(255, 255, 255, 0.95));
+      border-right: 1px solid rgba(77, 93, 112, 0.08);
+      border-bottom: 1px solid rgba(77, 93, 112, 0.08);
+      transform: rotate(45deg);
+    }
+
+    .gallery-caption span {
+      color: var(--accent-deep);
+      font-size: 0.84rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .gallery-dots {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+      margin-left: 2px;
+    }
+
+    .gallery-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(91, 124, 250, 0.24);
+      transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .gallery-dot.is-active {
+      background: var(--accent);
+      transform: scale(1.15);
+    }
+
+    .stat-card,
+    .mini-card {
+      padding: 20px 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat-value {
+      margin-top: 8px;
+      font-size: 1.32rem;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .section {
+      padding: 30px;
+    }
+
+    .section h2 {
+      margin: 0 0 14px;
+      font-size: 1.28rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .research-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      background: rgba(91, 124, 250, 0.1);
+      border: 1px solid rgba(91, 124, 250, 0.15);
+      color: var(--accent-deep);
+      font-weight: 600;
+      transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .research-link:hover {
+      background: rgba(91, 124, 250, 0.14);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .music-player {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 24px;
+      background: var(--surface-strong);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+      box-shadow: 0 16px 42px rgba(46, 63, 86, 0.07);
+    }
+
+    .player-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .album-art {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(140deg, var(--accent), #84a0ff 55%, #dfe7ff);
+      color: white;
+      font-size: 1.7rem;
+      box-shadow: 0 12px 26px rgba(91, 124, 250, 0.22);
+    }
+
+    .track-title {
+      font-size: 1.14rem;
+      font-weight: 600;
+    }
+
+    .track-artist,
+    .track-time,
+    .playlist-label {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .progress-wrap {
+      margin-bottom: 16px;
+    }
+
+    .progress-meta,
+    .player-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .progress-meta {
+      margin-bottom: 8px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin: 0;
+      appearance: none;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(91, 124, 250, 0.18);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 2px 8px rgba(91, 124, 250, 0.28);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 2px 8px rgba(91, 124, 250, 0.28);
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .control-btn {
+      border: 0;
+      border-radius: 50%;
+      background: rgba(91, 124, 250, 0.1);
+      color: var(--accent-deep);
+      cursor: pointer;
+      transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .control-btn.small {
+      width: 44px;
+      height: 44px;
+      font-size: 1rem;
+    }
+
+    .control-btn.play {
+      width: 56px;
+      height: 56px;
+      background: var(--accent);
+      color: white;
+      font-size: 1.16rem;
+      box-shadow: 0 12px 22px rgba(91, 124, 250, 0.24);
+    }
+
+    .volume-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 170px;
+    }
+
+    .playlist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 12px;
+    }
+
+    .playlist-label {
+      margin: 0;
+    }
+
+    .playlist-toggle {
+      border: 1px solid rgba(77, 93, 112, 0.09);
+      background: rgba(91, 124, 250, 0.08);
+      color: var(--accent-deep);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: background 0.24s ease, transform 0.24s ease;
+    }
+
+    .playlist-toggle:hover {
+      background: rgba(91, 124, 250, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .playlist {
+      display: grid;
+      gap: 10px;
+      overflow: hidden;
+      max-height: 220px;
+      opacity: 1;
+      transition: max-height 0.28s ease, opacity 0.24s ease, margin-top 0.24s ease;
+    }
+
+    .playlist.is-collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+      pointer-events: none;
+    }
+
+    .track {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(91, 124, 250, 0.06);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease;
+    }
+
+    .track.active {
+      background: rgba(91, 124, 250, 0.12);
+      border-color: rgba(91, 124, 250, 0.16);
+    }
+
+    .track-name {
+      font-weight: 600;
+    }
+
+    .track-length {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .link-list {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .link-list a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(77, 93, 112, 0.08);
+      transition: transform 0.24s ease, background 0.24s ease;
+    }
+
+    .link-list a:hover {
+      transform: translateX(3px);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .footer {
+      margin-top: 22px;
+      padding: 18px 6px 0;
+      border-top: 1px solid rgba(84, 61, 48, 0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main {
+        min-height: auto;
+      }
+
+      .footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100%, calc(100% - 20px));
+        padding-top: 16px;
+      }
+
+      .topbar,
+      .player-bottom,
+      .progress-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-main,
+      .section {
+        padding: 26px 22px;
+      }
+
+      .hero-side {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 16vw, 4rem);
+      }
+
+      .controls {
+        width: 100%;
+      }
+
+      .volume-group {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .player-header {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">Zhihe Pan</div>
+      <nav class="nav" aria-label="快速导航">
+        <a class="pill" href="#about">About</a>
+        <a class="pill" href="#research">Research</a>
+        <a class="pill" href="#music">Music</a>
+        <a class="pill" href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <section class="hero">
+      <div class="panel hero-main">
+        <div class="eyebrow">PhD Student in Psychology, Zhejiang University</div>
+        <h1>潘之禾<br /><span class="name-latin">Zhihe Pan</span></h1>
+        <!-- <p class="hero-subtitle">
+          关注声音与面孔中的情绪表达与知觉，也关注这些线索如何在不同语言和文化背景中被理解。
+        </p> -->
+        <div class="hero-actions">
+          <a class="pill" href="mailto:zhpan@zju.edu.cn">Email Me</a>
+          <a class="pill"  target="_blank" rel="noreferrer">Current Experiment</a>
+          <!-- href="http://47.98.215.3/exp/" -->
+        </div>
+        <!-- <div class="hero-note">
+          我的研究兴趣为声音和面孔中的情绪表达与知觉，及其跨文化/语言差异。
+        </div> -->
+      </div>
+
+      <aside class="panel hero-side">
+        <div class="portrait" aria-label="乌萨奇图片画廊">
+          <div class="gallery-frame" id="gallery-frame"></div>
+          <div class="gallery-caption">
+            <span>Usagi Gallery</span>
+            <div class="gallery-dots" id="gallery-dots" aria-hidden="true"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Research Focus</div>
+          <div class="stat-value">Emotion, Voice, Face, Culture</div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="panel section" id="about">
+        <h2>关于我</h2>
+        <p>
+          我是浙江大学心理系博士研究生。我的工作主要围绕情绪信息在声音与面孔中的表达与知觉，
+          以及这些过程中的跨文化与跨语言差异展开。
+        </p>
+        <div class="tags">
+          <span class="tag">Affective Science</span>
+          <span class="tag">Prosody and Nonverbal vocalizations</span>
+          <span class="tag">Facial Expressions</span>
+          <span class="tag">Cultural Differences</span>
+        </div>
+      </article>
+
+      <article class="panel section" id="research">
+        <h2>正在进行的研究</h2>
+        <p>如果你正在参与项目或想了解当前研究，可以从下面链接进入。</p>
+        <a class="research-link"  target="_blank" rel="noreferrer"> 
+          <!-- -- href="http://47.98.215.3/exp/" -->
+          打开实验页面（暂未开放）
+          <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+
+      <article class="panel section" id="music">
+        <h2>喜欢的事物</h2>
+        <p>这里放了一点我自己的音乐创作（非常业余🤣）。</p>
+
+        <div class="music-player">
+          <audio id="audio-player" preload="metadata"></audio>
+
+          <div class="player-header">
+            <div class="album-art" aria-hidden="true">♪</div>
+            <div class="track-info">
+              <div class="track-title" id="track-title">茉与蓝树</div>
+              <div class="track-artist">Original sketches by Zhihe Pan</div>
+            </div>
+          </div>
+
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <div class="track-time">
+                <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+              </div>
+              <div class="playlist-label" id="play-state">Ready to play</div>
+            </div>
+            <input type="range" id="progress-bar" value="0" min="0" max="100" step="0.1" aria-label="播放进度" />
+          </div>
+
+          <div class="player-bottom">
+            <div class="controls">
+              <button class="control-btn small" id="prev-btn" type="button" title="上一首" aria-label="上一首">⏮</button>
+              <button class="control-btn play" id="play-pause-btn" type="button" title="播放或暂停" aria-label="播放或暂停">▶</button>
+              <button class="control-btn small" id="next-btn" type="button" title="下一首" aria-label="下一首">⏭</button>
+            </div>
+
+            <label class="volume-group" for="volume-bar">
+              <span>Volume</span>
+              <input type="range" id="volume-bar" value="60" min="0" max="100" aria-label="音量控制" />
+            </label>
+          </div>
+
+          <div class="playlist-header">
+            <div class="playlist-label">Playlist</div>
+            <button
+              class="playlist-toggle"
+              id="playlist-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="playlist"
+            >
+              Show playlist
+            </button>
+          </div>
+          <div class="playlist is-collapsed" id="playlist">
+            <button class="track active" type="button" data-index="0">
+              <span class="track-name">茉与蓝树</span>
+              <span class="track-length">Track 01</span>
+            </button>
+            <button class="track" type="button" data-index="1">
+              <span class="track-name">新年快乐</span>
+              <span class="track-length">Track 02</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <article class="panel section" id="contact">
+        <h2>联系方式与相关链接</h2>
+        <p>如果你希望联系我，或者了解实验室相关工作，可以从下面这些入口找到我。</p>
+        <ul class="link-list">
+          <li>
+            <a href="mailto:zhpan@zju.edu.cn">
+              <span>zhpan@zju.edu.cn</span>
+              <span aria-hidden="true">Mail</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://emotionculturelab.com/" target="_blank" rel="noreferrer">
+              <span>Emotion &amp; Culture Lab</span>
+              <span aria-hidden="true">Visit</span>
+            </a>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 Zhihe Pan</span>
+      <span>Built as an personal page with research + music.</span>
+    </footer>
+  </div>
+
+  <script>
+    const audio = document.getElementById("audio-player");
+    const playPauseBtn = document.getElementById("play-pause-btn");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const progressBar = document.getElementById("progress-bar");
+    const volumeBar = document.getElementById("volume-bar");
+    const currentTimeEl = document.getElementById("current-time");
+    const totalTimeEl = document.getElementById("total-time");
+    const trackTitleEl = document.getElementById("track-title");
+    const playStateEl = document.getElementById("play-state");
+    const playlistEl = document.getElementById("playlist");
+    const playlistToggleBtn = document.getElementById("playlist-toggle");
+    const galleryFrameEl = document.getElementById("gallery-frame");
+    const galleryDotsEl = document.getElementById("gallery-dots");
+    const trackButtons = Array.from(document.querySelectorAll(".track"));
+
+    const playlist = [
+      { src: "music/茉与蓝树.wav", title: "茉与蓝树" },
+      { src: "music/新年快乐.wav", title: "新年快乐" }
+    ];
+
+    // Add new images here when you put more files into image/.
+    const galleryImages = [
+      { src: "image/IMG_4281.JPG", alt: "乌萨奇图片 1" },
+      { src: "image/IMG_4282.JPG", alt: "乌萨奇图片 2" },
+      { src: "image/IMG_4283.JPG", alt: "乌萨奇图片 3" },
+      { src: "image/IMG_4289.JPG", alt: "乌萨奇图片 4" },
+      { src: "image/IMG_4290.PNG", alt: "乌萨奇图片 5" },
+      { src: "image/IMG_5310.JPG", alt: "乌萨奇图片 6" },
+      { src: "image/IMG_6068.JPG", alt: "乌萨奇图片 7" },
+      { src: "image/IMG_6314.GIF", alt: "乌萨奇图片 8" },
+      { src: "image/IMG_7311.PNG", alt: "乌萨奇图片 9" },
+      { src: "image/9936498b388d130bc4ce739b95673759.JPG", alt: "乌萨奇图片 10" }
+    ];
+
+    let currentIndex = 0;
+    let currentGalleryIndex = 0;
+    let gallerySlides = [];
+    let galleryDots = [];
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) {
+        return "0:00";
+      }
+
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${String(secs).padStart(2, "0")}`;
+    }
+
+    function syncActiveTrack() {
+      trackButtons.forEach((button, index) => {
+        button.classList.toggle("active", index === currentIndex);
+      });
+    }
+
+    function updatePlayButton() {
+      playPauseBtn.textContent = audio.paused ? "▶" : "❚❚";
+      playStateEl.textContent = audio.paused ? "Ready to play" : "Now playing";
+    }
+
+    function updatePlaylistToggle() {
+      const isCollapsed = playlistEl.classList.contains("is-collapsed");
+      playlistToggleBtn.textContent = isCollapsed ? "Show playlist" : "Hide playlist";
+      playlistToggleBtn.setAttribute("aria-expanded", String(!isCollapsed));
+    }
+
+    function renderGallery() {
+      galleryFrameEl.innerHTML = "";
+      galleryDotsEl.innerHTML = "";
+
+      galleryImages.forEach((image, index) => {
+        const slide = document.createElement("img");
+        slide.className = index === 0 ? "gallery-slide is-active" : "gallery-slide";
+        slide.src = image.src;
+        slide.alt = image.alt;
+        galleryFrameEl.appendChild(slide);
+
+        const dot = document.createElement("span");
+        dot.className = index === 0 ? "gallery-dot is-active" : "gallery-dot";
+        galleryDotsEl.appendChild(dot);
+      });
+
+      gallerySlides = Array.from(document.querySelectorAll(".gallery-slide"));
+      galleryDots = Array.from(document.querySelectorAll(".gallery-dot"));
+    }
+
+    function updateGallery(index) {
+      if (!gallerySlides.length) {
+        return;
+      }
+
+      gallerySlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === index);
+      });
+
+      galleryDots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === index);
+      });
+    }
+
+    function playNextGallerySlide() {
+      if (!gallerySlides.length) {
+        return;
+      }
+
+      currentGalleryIndex = (currentGalleryIndex + 1) % gallerySlides.length;
+      updateGallery(currentGalleryIndex);
+    }
+
+    function loadTrack(index, shouldAutoplay = false) {
+      currentIndex = index;
+      audio.src = playlist[currentIndex].src;
+      trackTitleEl.textContent = playlist[currentIndex].title;
+      progressBar.value = 0;
+      currentTimeEl.textContent = "0:00";
+      totalTimeEl.textContent = "0:00";
+      syncActiveTrack();
+      updatePlayButton();
+
+      if (shouldAutoplay) {
+        audio.play().catch(() => {
+          playStateEl.textContent = "Tap play to start";
+          updatePlayButton();
+        });
+      }
+    }
+
+    function togglePlay() {
+      if (!audio.src) {
+        loadTrack(currentIndex, true);
+        return;
+      }
+
+      if (audio.paused) {
+        audio.play().catch(() => {
+          playStateEl.textContent = "Playback unavailable";
+        });
+      } else {
+        audio.pause();
+      }
+    }
+
+    function playNextTrack() {
+      loadTrack((currentIndex + 1) % playlist.length, true);
+    }
+
+    function playPreviousTrack() {
+      loadTrack((currentIndex - 1 + playlist.length) % playlist.length, true);
+    }
+
+    playPauseBtn.addEventListener("click", togglePlay);
+    nextBtn.addEventListener("click", playNextTrack);
+    prevBtn.addEventListener("click", playPreviousTrack);
+    playlistToggleBtn.addEventListener("click", () => {
+      playlistEl.classList.toggle("is-collapsed");
+      updatePlaylistToggle();
+    });
+
+    progressBar.addEventListener("input", (event) => {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
+        return;
+      }
+
+      audio.currentTime = (Number(event.target.value) / 100) * audio.duration;
+    });
+
+    volumeBar.addEventListener("input", (event) => {
+      audio.volume = Number(event.target.value) / 100;
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      totalTimeEl.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (Number.isFinite(audio.duration) && audio.duration > 0) {
+        progressBar.value = (audio.currentTime / audio.duration) * 100;
+      }
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+
+    audio.addEventListener("play", updatePlayButton);
+    audio.addEventListener("pause", updatePlayButton);
+    audio.addEventListener("ended", playNextTrack);
+
+    trackButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        loadTrack(Number(button.dataset.index), true);
+      });
+    });
+
+    audio.volume = Number(volumeBar.value) / 100;
+    loadTrack(currentIndex);
+    updatePlaylistToggle();
+    renderGallery();
+    updateGallery(currentGalleryIndex);
+
+    if (gallerySlides.length > 1) {
+      window.setInterval(playNextGallerySlide, 2600);
+    }
+  </script>
+</body>
+</html>

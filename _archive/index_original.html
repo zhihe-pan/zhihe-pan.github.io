@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>个人主页</title>
+  <style>
+    :root {
+      --bg: radial-gradient(circle at top, #edf2ff 0%, #f5f7ff 40%, #f9fafb 100%);
+      --fg: #1a1a1f;
+      --muted: rgba(26,26,31,0.68);
+      --accent: #3b62ff;
+      --border: rgba(45,55,72,0.12);
+      --radius: 18px;
+      --max: 880px;
+      --shadow: 0 24px 60px rgba(20, 28, 48, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .container {
+      width: min(100%, var(--max));
+      padding: 32px 28px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    header {
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(45,55,72,0.12);
+      margin-bottom: 26px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 2.6rem);
+      letter-spacing: -0.02em;
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      font-weight: 600;
+      color: var(--fg);
+      position: relative;
+      padding-left: 14px;
+    }
+
+    h2::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.45em;
+      width: 4px;
+      height: 1.2em;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(59,98,255,0.35);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    a:hover {
+      color: #1a3bff;
+      border-color: rgba(59,98,255,0.65);
+    }
+
+    .card {
+      padding: 22px 22px 24px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 18px 45px rgba(20, 28, 48, 0.10);
+      border: 1px solid rgba(45,55,72,0.1);
+      margin-top: 22px;
+      text-align: left;
+    }
+
+    .list {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .list li {
+      margin: 12px 0;
+    }
+
+    .footer {
+      margin-top: 38px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 32px 12px; }
+      .container { padding: 26px 18px; }
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.05rem; }
+      p { margin-bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>潘之禾</h1>
+    </header>
+
+    <section class="card">
+      <h2>关于我</h2>
+      <p>我是浙江大学心理系的博士研究生。我的研究方向包括声音与面孔中情绪的表达与知觉，以及跨文化/跨语言差异。</p>
+    </section>
+
+    <section class="card">
+      <h2>正在进行的研究</h2>
+      <p><a href="http://47.98.215.3/exp/" target="_blank" rel="noreferrer">http://47.98.215.3/exp/</a></p>
+    </section>
+
+    <section class="card">
+      <h2>联系方式</h2>
+      <p><a href="mailto:zhpan@zju.edu.cn">zhpan@zju.edu.cn</a></p>
+    </section>
+
+    <section class="card">
+      <h2>相关链接</h2>
+      <ul class="list">
+        <li><a href="https://emotionculturelab.com/" target="_blank" rel="noreferrer">Emotion &amp; Culture Lab</a></li>
+      </ul>
+    </section>
+
+    <div class="footer">© 2026 Zhihe Pan</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zhihe Pan</title>
+  <style>
+    * { box-sizing: border-box; }
+    :root {
+      --bg: #f6f1eb;
+      --bg-soft: rgba(255,255,255,0.55);
+      --card: rgba(255,255,255,0.62);
+      --text: #2e2622;
+      --muted: #6e625b;
+      --line: rgba(46,38,34,0.08);
+      --accent: #b86a4b;
+      --accent-2: #d7a489;
+      --shadow: 0 20px 50px rgba(76, 53, 40, 0.10);
+      --radius: 28px;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(215,164,137,0.22), transparent 30%),
+        radial-gradient(circle at 85% 15%, rgba(184,106,75,0.12), transparent 22%),
+        linear-gradient(180deg, #f8f4ef 0%, #f2ebe4 100%);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    .blur {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .blur::before,
+    .blur::after {
+      content: "";
+      position: absolute;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.32;
+    }
+
+    .blur::before {
+      background: #efc6b2;
+      top: -80px;
+      left: -80px;
+    }
+
+    .blur::after {
+      background: #d9b9d8;
+      right: -90px;
+      top: 260px;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 26px 0 42px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .lang-btn {
+      border: 1px solid rgba(46,38,34,0.08);
+      background: rgba(255,255,255,0.68);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+      border-radius: 999px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 24px rgba(76,53,40,0.06);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .lang-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.85); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.45);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 54px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      bottom: -50px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,106,75,0.18), rgba(184,106,75,0.02) 70%);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.55);
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+      border: 1px solid rgba(46,38,34,0.06);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin-top: 16px;
+      max-width: 520px;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .chip,
+    .link-card a {
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .chip {
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(46,38,34,0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 24px rgba(76,53,40,0.05);
+    }
+
+    .chip:hover { transform: translateY(-2px); }
+
+    .hero-side {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      justify-content: space-between;
+    }
+
+    .portrait {
+      min-height: 250px;
+      border-radius: 22px;
+      background:
+        linear-gradient(140deg, rgba(255,255,255,0.7), rgba(255,255,255,0.18)),
+        linear-gradient(135deg, #d9a98f, #e7d2c6 45%, #c8b8d9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portrait::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .mini-note {
+      padding: 20px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(46,38,34,0.06);
+    }
+
+    .mini-note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      margin-top: 22px;
+    }
+
+    .section {
+      padding: 30px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(46,38,34,0.06);
+      font-size: 0.92rem;
+    }
+
+    .wide {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .link-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.62);
+      border: 1px solid rgba(46,38,34,0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .link-card:hover { transform: translateY(-2px); }
+
+    .link-card small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      padding: 28px 10px 10px;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-main {
+        padding: 38px 28px;
+        min-height: auto;
+      }
+      .wrap { width: min(100% - 24px, 1100px); }
+      h1 { line-height: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blur"></div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand" data-en="personal website" data-zh="个人主页">personal website</div>
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">中文</button>
+    </div>
+
+    <section class="hero">
+      <div class="panel hero-main">
+        <div class="eyebrow" data-en="Hello, I'm" data-zh="你好，我是">Hello, I'm</div>
+        <h1 data-en="Zhihe Pan" data-zh="潘之禾">Zhihe Pan</h1>
+        <p class="subtitle" 
+           data-en="I’m drawn to emotion, sound, culture, and the subtle ways people connect. This space is a small window into my work, interests, and the things I’m curious about."
+           data-zh="我对情绪、声音、文化，以及人与人之间那些细微的连接方式很感兴趣。这个小网站记录了我的一些工作、兴趣和正在探索的内容。">
+          I’m drawn to emotion, sound, culture, and the subtle ways people connect. This space is a small window into my work, interests, and the things I’m curious about.
+        </p>
+        <div class="hero-links">
+          <a class="chip" href="#education" data-en="Education" data-zh="教育">Education</a>
+          <a class="chip" href="#research" data-en="Research" data-zh="研究">Research</a>
+          <a class="chip" href="#contact" data-en="Contact" data-zh="联系">Contact</a>
+          <a class="chip" href="#links" data-en="Links" data-zh="链接">Links</a>
+        </div>
+      </div>
+
+      <div class="panel hero-side">
+        <div class="portrait"></div>
+        <div class="mini-note">
+          <p data-en="Currently based at Zhejiang University, exploring emotion perception, voice, expression, and culture — but trying to keep life warmer than a CV."
+             data-zh="目前在浙江大学心理学系学习与研究，关注情绪感知、声音表达与文化差异，也希望让个人网站看起来比简历更有温度。">
+            Currently based at Zhejiang University, exploring emotion perception, voice, expression, and culture — but trying to keep life warmer than a CV.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel section" id="education">
+        <h2 data-en="Education Background" data-zh="教育经历">Education Background</h2>
+        <p data-en="PhD in Psychology, Zhejiang University (2021-Present)<br>Bachelor's in Psychology, Zhejiang University (2017-2021)"
+           data-zh="心理学博士，浙江大学 (2021-至今)<br>心理学学士，浙江大学 (2017-2021)">
+          PhD in Psychology, Zhejiang University (2021-Present)<br>Bachelor's in Psychology, Zhejiang University (2017-2021)
+        </p>
+      </div>
+
+      <div class="panel section" id="research">
+        <h2 data-en="Research Directions" data-zh="研究方向">Research Directions</h2>
+        <div class="tags">
+          <span class="tag" data-en="Emotion Perception" data-zh="情绪感知">Emotion Perception</span>
+          <span class="tag" data-en="Vocal Expression" data-zh="声音表达">Vocal Expression</span>
+          <span class="tag" data-en="Cultural Differences" data-zh="文化差异">Cultural Differences</span>
+          <span class="tag" data-en="Multimodal Emotion" data-zh="多模态情绪">Multimodal Emotion</span>
+          <span class="tag" data-en="Face and Voice" data-zh="面孔与声音">Face and Voice</span>
+        </div>
+      </div>
+
+      <div class="panel section" id="contact">
+        <h2 data-en="Contact Information" data-zh="联系方式">Contact Information</h2>
+        <p data-en="Email: zhpan@zju.edu.cn<br>Location: Hangzhou, China"
+           data-zh="邮箱: zhpan@zju.edu.cn<br>地点: 中国杭州">
+          Email: zhpan@zju.edu.cn<br>Location: Hangzhou, China
+        </p>
+      </div>
+
+      <div class="panel section" id="links">
+        <h2 data-en="Related Links" data-zh="相关链接">Related Links</h2>
+        <div class="link-list">
+          <a class="link-card" href="https://emotionculturelab.com/" target="_blank">
+            <div>
+              <strong>Emotion &amp; Culture Lab</strong>
+              <small data-en="A place connected to my research context" data-zh="与我的研究相关的网站">A place connected to my research context</small>
+            </div>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide">
+      <div class="panel section">
+        <h2 data-en="Music" data-zh="音乐">Music</h2>
+        <p data-en="Here is one of my original compositions uploaded to NetEase Cloud Music."
+           data-zh="这里是我上传到网易云音乐的一首原创作品。">
+          Here is one of my original compositions uploaded to NetEase Cloud Music.
+        </p>
+        <a href="https://music.163.com/song?id=1808235116" target="_blank" class="link-card">
+          <div>
+            <strong data-en="Listen on NetEase Cloud Music" data-zh="在网易云音乐上聆听">Listen on NetEase Cloud Music</strong>
+            <small data-en="Click to open in NetEase Cloud Music" data-zh="点击在网易云音乐中打开">Click to open in NetEase Cloud Music</small>
+          </div>
+          <span>↗</span>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <span data-en="© 2026 Zhihe Pan" data-zh="© 2026 潘之禾">© 2026 Zhihe Pan</span>
+    </footer>
+  </div>
+
+  <script>
+    let currentLang = 'en';
+
+    function toggleLang() {
+      const elements = document.querySelectorAll('[data-en]');
+      const btn = document.getElementById('langBtn');
+
+      if (currentLang === 'en') {
+        elements.forEach(el => {
+          el.innerHTML = el.getAttribute('data-zh');
+        });
+        document.documentElement.lang = 'zh-CN';
+        btn.textContent = 'English';
+        currentLang = 'zh';
+      } else {
+        elements.forEach(el => {
+          el.innerHTML = el.getAttribute('data-en');
+        });
+        document.documentElement.lang = 'en';
+        btn.textContent = '中文';
+        currentLang = 'en';
+      }
+    }
+  </script>
+</body>
+</html>
