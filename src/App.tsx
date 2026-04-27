@@ -1,29 +1,35 @@
-import React from 'react';
-import { MainLayout } from './components/layout/MainLayout';
-import type { TabId } from './components/layout/Header';
-
+import { Navbar } from './components/layout/Navbar';
+import { HeroSection } from './components/sections/HeroSection';
 import { AboutSection } from './components/sections/AboutSection';
-import { EducationSection } from './components/sections/EducationSection';
 import { ResearchSection } from './components/sections/ResearchSection';
-import { PresentSection } from './components/sections/PresentSection';
-import { ToolsSection } from './components/sections/ToolsSection';
+import { VibeCodingLab } from './components/sections/VibeCodingLab';
 import { LifeSection } from './components/sections/LifeSection';
+import { FantasySection } from './components/sections/FantasySection';
+import { Footer } from './components/layout/Footer';
+import { LanguageProvider } from './context/LanguageContext';
+
+const AppContent: React.FC = () => {
+  return (
+    <div className="noise-overlay min-h-screen">
+      <Navbar />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <ResearchSection />
+        <VibeCodingLab />
+        <LifeSection />
+        <FantasySection />
+      </main>
+      <Footer />
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   return (
-    <MainLayout>
-      {(activeTab: TabId) => {
-        switch (activeTab) {
-          case 'about': return <AboutSection key="about" />;
-          case 'focus': return <EducationSection key="focus" />;
-          case 'research': return <ResearchSection key="research" />;
-          case 'present': return <PresentSection key="present" />;
-          case 'tools': return <ToolsSection key="tools" />;
-          case 'life': return <LifeSection key="life" />;
-          default: return null;
-        }
-      }}
-    </MainLayout>
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 };
 
