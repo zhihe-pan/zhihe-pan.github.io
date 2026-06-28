@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
   const page = await browser.newPage();
   
   // Screenshot Stepwise
-  await page.goto('https://zhihe-pan.github.io/stepwise-demo/#/login', { waitUntil: 'networkidle', timeout: 30000 });
+  await page.goto('https://stepwise.top/', { waitUntil: 'networkidle', timeout: 30000 });
   await page.waitForTimeout(3000);
   await page.screenshot({ path: 'public/image/screenshot-stepwise.png', fullPage: false, clip: { x: 0, y: 0, width: 1440, height: 900 } });
   console.log('Stepwise screenshot done');

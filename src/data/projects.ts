@@ -21,7 +21,7 @@ export const labData = {
         prompt: "Act as a cognitive architect. Deconstruct the user's vague intuition into atomic, emotionally manageable milestones..."
       },
       iconName: "Terminal",
-      url: "https://zhihe-pan.github.io/stepwise-demo/#/login"
+      url: "https://stepwise.top/"
     },
     {
       id: "careerflow",
